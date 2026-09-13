@@ -36,7 +36,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-6 text-neutral-400 leading-relaxed text-sm md:text-base max-w-md"
+            className="mt-10 text-neutral-400 leading-relaxed text-sm md:text-base max-w-md"
           >
             {c.intro}
           </motion.p>
@@ -64,7 +64,7 @@ export default function About() {
             >
               <span className="font-display text-gold/70 text-sm tracking-[0.35em]">{ch.n}</span>
               <h3 className="font-display font-semibold tracking-tight text-3xl md:text-4xl mt-3">{ch.title}</h3>
-              <p className="mt-4 text-neutral-400 leading-relaxed text-sm md:text-base max-w-md">{ch.text}</p>
+              <p className="mt-6 text-neutral-400 leading-relaxed text-sm md:text-base max-w-md">{ch.text}</p>
             </motion.div>
           ))}
         </div>

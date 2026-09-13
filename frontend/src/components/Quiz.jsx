@@ -331,7 +331,7 @@ export default function Quiz({ open, onClose, onContact }) {
                     {c.resultTitle}{" "}
                     <span className="text-gold italic">{result.name[lang]}</span>
                   </h3>
-                  <p className="mt-5 text-neutral-400 leading-relaxed text-sm md:text-base max-w-lg mx-auto text-center">
+                  <p className="mt-7 text-neutral-400 leading-relaxed text-sm md:text-base max-w-lg mx-auto text-center">
                     {result.result[lang]}
                   </p>
 

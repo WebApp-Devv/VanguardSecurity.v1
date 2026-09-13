@@ -64,7 +64,7 @@ export default function Hero({ onOpenQuiz, onNavigate }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.85, duration: 0.9 }}
-          className="mt-8 max-w-xl text-neutral-400 text-base md:text-lg leading-relaxed"
+          className="mt-10 max-w-xl text-neutral-400 text-base md:text-lg leading-relaxed"
           data-testid="hero-subtext"
         >
           {c.sub}

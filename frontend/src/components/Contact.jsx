@@ -67,7 +67,7 @@ export default function Contact({ prefillService }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-6 text-neutral-400 leading-relaxed max-w-md text-sm md:text-base"
+            className="mt-8 text-neutral-400 leading-relaxed max-w-md text-sm md:text-base"
           >
             {c.text}
           </motion.p>

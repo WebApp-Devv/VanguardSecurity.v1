@@ -86,7 +86,7 @@ export default function ServicePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.25 }}
-            className="mt-5 max-w-xl text-neutral-300 leading-relaxed text-sm md:text-base"
+            className="mt-7 max-w-xl text-neutral-300 leading-relaxed text-sm md:text-base"
           >
             {service.desc[lang]}
           </motion.p>

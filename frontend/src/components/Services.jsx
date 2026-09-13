@@ -83,7 +83,7 @@ export default function Services({ onOpenQuiz }) {
   return (
     <section id="services" className="relative py-16 md:py-24" data-testid="services-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
           <div>
             <motion.p
               initial={{ opacity: 0, y: 16 }}
