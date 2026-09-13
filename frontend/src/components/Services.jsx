@@ -10,7 +10,7 @@ const IMAGES = {
   physical:
     "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200",
   surveillance:
-    "https://images.unsplash.com/photo-1776639257282-35eda08588bf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwyfHxzZWN1cml0eSUyMGNhbWVyYSUyMGRhcmslMjBtb2Rlcm58ZW58MHx8fHwxNzg5MzA2NDM2fDA&ixlib=rb-4.1.0&q=85",
+    "https://images.unsplash.com/photo-1776639257282-35eda08588bf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwyfHxzZWN1cml0eSUyMGNhbWVyYSUyMGRhcmslMjBtb2Rlcm58ZW58MHx8fHwxNzg5MzA2NDM2fDA&ixlib=rb-4.1.0&q=75&w=1200",
   patrol:
     "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&q=80&w=1200",
 };

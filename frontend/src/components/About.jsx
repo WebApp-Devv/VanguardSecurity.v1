@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useLang, copy } from "@/i18n";
 
 const ABOUT_IMG =
-  "https://images.unsplash.com/photo-1784411641863-d163d776ed55?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBsdXh1cnklMjBidWlsZGluZyUyMG5pZ2h0fGVufDB8fHx8MTc4OTMwNjQzNnww&ixlib=rb-4.1.0&q=85";
+  "https://images.unsplash.com/photo-1784411641863-d163d776ed55?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBsdXh1cnklMjBidWlsZGluZyUyMG5pZ2h0fGVufDB8fHx8MTc4OTMwNjQzNnww&ixlib=rb-4.1.0&q=80&w=1200";
 
 export default function About() {
   const { lang } = useLang();

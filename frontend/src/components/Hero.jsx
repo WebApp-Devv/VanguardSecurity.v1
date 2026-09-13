@@ -4,7 +4,7 @@ import { ArrowDown, ShieldCheck } from "lucide-react";
 import { useLang, copy } from "@/i18n";
 
 const HERO_IMG =
-  "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&q=80&w=2000";
+  "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&q=75&w=1600";
 
 const lineReveal = {
   hidden: { y: "115%" },
