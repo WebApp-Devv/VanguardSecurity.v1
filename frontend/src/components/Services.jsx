@@ -32,8 +32,9 @@ function ServiceCard({ service, index, featured, lang }) {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-80px" }}
+      onClick={() => { window.location.href = `/services/${service.id}`; }}
       data-testid={`service-card-${service.id}`}
-      className={`group relative overflow-hidden rounded-[2rem] border border-white/10 hover:border-gold/40 transition-colors duration-500 ${
+      className={`group relative overflow-hidden cursor-pointer rounded-[2rem] border border-white/10 hover:border-gold/40 transition-colors duration-500 ${
         featured ? "md:col-span-7 min-h-[460px]" : "md:col-span-5 lg:col-span-4 min-h-[380px]"
       }`}
     >

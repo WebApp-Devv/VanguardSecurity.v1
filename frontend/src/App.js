@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 import { LanguageProvider } from "@/i18n";
 import Landing from "@/pages/Landing";
 import Admin from "@/pages/Admin";
+import ServicePage from "@/pages/ServicePage";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/services/:id" element={<ServicePage />} />
         </Routes>
       </BrowserRouter>
       <Toaster theme="dark" position="bottom-center" />

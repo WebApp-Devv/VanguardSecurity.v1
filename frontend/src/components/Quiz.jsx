@@ -1,11 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
-import { toast } from "sonner";
-import { X, ShieldCheck, LoaderCircle, RotateCcw, Send, Check } from "lucide-react";
+import { X, ShieldCheck, LoaderCircle, RotateCcw, Check } from "lucide-react";
+import LeadForm from "@/components/LeadForm";
 import { useLang, copy, SERVICES } from "@/i18n";
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const QUESTIONS = [
   {
@@ -111,8 +108,6 @@ export default function Quiz({ open, onClose, onContact }) {
   const [selected, setSelected] = useState(null);
   const [loadStep, setLoadStep] = useState(0);
   const [result, setResult] = useState(null);
-  const [lead, setLead] = useState({ name: "", email: "", phone: "" });
-  const [leadState, setLeadState] = useState("idle");
   const busyRef = useRef(false);
   const countRef = useRef(0);
   const [advancing, setAdvancing] = useState(false);
@@ -125,8 +120,6 @@ export default function Quiz({ open, onClose, onContact }) {
       setSelected(null);
       setLoadStep(0);
       setResult(null);
-      setLead({ name: "", email: "", phone: "" });
-      setLeadState("idle");
       busyRef.current = false;
       countRef.current = 0;
       setAdvancing(false);
@@ -187,26 +180,6 @@ export default function Quiz({ open, onClose, onContact }) {
       }
     }, 420);
   };
-
-  const submitLead = async (e) => {
-    e.preventDefault();
-    setLeadState("sending");
-    try {
-      await axios.post(`${API}/quiz-lead`, {
-        ...lead,
-        recommended_service: result.name.en,
-        answers: answers.map((a, i) => `Q${i + 1} ${a.question} — ${a.answer}`),
-      });
-      setLeadState("sent");
-      toast.success(c.sent);
-    } catch {
-      setLeadState("idle");
-      toast.error(c.error);
-    }
-  };
-
-  const inputCls =
-    "w-full bg-white/5 border border-white/10 focus:border-gold/70 rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-neutral-500 outline-none transition-colors duration-300";
 
   return (
     <AnimatePresence>
@@ -362,51 +335,18 @@ export default function Quiz({ open, onClose, onContact }) {
                     {result.result[lang]}
                   </p>
 
-                  {leadState !== "sent" ? (
-                    <form onSubmit={submitLead} className="mt-9 glass rounded-3xl p-6 md:p-7" data-testid="quiz-lead-form">
-                      <p className="font-semibold text-sm md:text-base">{c.leadTitle}</p>
-                      <p className="text-xs text-neutral-500 mt-1 mb-5">{c.leadText}</p>
-                      <div className="flex flex-col gap-3">
-                        <input
-                          data-testid="quiz-lead-name-input"
-                          required
-                          value={lead.name}
-                          onChange={(e) => setLead((l) => ({ ...l, name: e.target.value }))}
-                          placeholder={c.name}
-                          className={inputCls}
-                        />
-                        <input
-                          data-testid="quiz-lead-email-input"
-                          required
-                          type="email"
-                          value={lead.email}
-                          onChange={(e) => setLead((l) => ({ ...l, email: e.target.value }))}
-                          placeholder={c.email}
-                          className={inputCls}
-                        />
-                        <input
-                          data-testid="quiz-lead-phone-input"
-                          value={lead.phone}
-                          onChange={(e) => setLead((l) => ({ ...l, phone: e.target.value }))}
-                          placeholder={c.phone}
-                          className={inputCls}
-                        />
-                        <button
-                          data-testid="quiz-lead-submit-btn"
-                          type="submit"
-                          disabled={leadState === "sending"}
-                          className="mt-1 flex items-center justify-center gap-2.5 bg-gold hover:bg-gold-bright disabled:opacity-60 text-ink font-bold rounded-full px-8 py-3.5 text-sm transition-[transform,background-color] duration-300 hover:scale-[1.02]"
-                        >
-                          {leadState === "sending" ? <LoaderCircle size={16} className="animate-spin" /> : <Send size={16} />}
-                          {leadState === "sending" ? c.sending : c.submit}
-                        </button>
-                      </div>
-                    </form>
-                  ) : (
-                    <div className="mt-9 glass rounded-3xl p-6 text-center text-gold text-sm font-semibold" data-testid="quiz-lead-success">
-                      {c.sent}
-                    </div>
-                  )}
+                  <LeadForm
+                    endpoint="/quiz-lead"
+                    buildExtra={() => ({
+                      recommended_service: result.name.en,
+                      answers: answers.map((a, i) => `Q${i + 1} ${a.question} — ${a.answer}`),
+                    })}
+                    title={c.leadTitle}
+                    text={c.leadText}
+                    submitLabel={c.submit}
+                    testPrefix="quiz-lead"
+                    className="mt-9"
+                  />
 
                   <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-4">
                     <button

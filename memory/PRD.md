@@ -28,8 +28,9 @@ Website with a catchy, Apple-iOS-ad-style entry vibe, fused with liquid glass an
 - Footer with tagline/location
 - Noise grain overlay, gold-on-matte-black palette, Clash Display + Manrope typography
 
-## Implemented (2026-07-13, update 2)
-- OWNER_EMAIL set to vanguard.ks@outlook.com — contact + quiz lead emails now go to the owner
+## Implemented (2026-07-13, update 3)
+- Dedicated page per service at /services/:id (event, close_protection, physical, surveillance, patrol): hero with service image, short & clear bilingual benefits list, and a "Rezervo" booking section with the same lead form as the quiz result (shared LeadForm component). New POST /api/booking endpoint saves type "booking" leads and emails the owner. Landing service cards are clickable and route to their pages. Admin panel: "REZERVIM" badge + Bookings/Rezervime filter tab. Language choice now persists across pages (localStorage).
+- (Update 2) OWNER_EMAIL = vanguard.ks@outlook.com; "Na Kontakto" wording; scroll performance fix (141ms → 17.5ms avg frame).
 - SQ wording: "Kontakto Na" corrected to "Na Kontakto"
 - Scroll performance fix: removed scroll-linked parallax on blurred glow fields, reduced backdrop-blur radii (24/28px → 14/18px), large panels use blur-free glass-panel, tag chips de-blurred. Measured: 141ms → 17.5ms average frame time during scroll (steady state ~57fps).
 - (Update 1) Admin Command Center at /admin: admin-only JWT login (no public registration, bcrypt hashing, 12h Bearer tokens, 5-attempt/15-min brute-force lockout), dashboard with stats cards (total/quiz/contact/unread), demand-by-service gold bar chart, filters (all/quiz/contact), live search, unread-only toggle, expandable lead details (message + all 10 quiz answers), mark read/unread, delete, logout. Admin credentials seeded from env.

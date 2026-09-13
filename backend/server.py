@@ -299,6 +299,38 @@ async def create_quiz_lead(payload: QuizLeadRequest):
     return {"status": "success", "id": doc["id"]}
 
 
+class BookingRequest(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    email: EmailStr
+    phone: str = Field(default="", max_length=40)
+    service: str = Field(min_length=1, max_length=120)
+
+
+@api_router.post("/booking")
+async def create_booking(payload: BookingRequest):
+    doc = {
+        "id": str(uuid.uuid4()),
+        "type": "booking",
+        **payload.model_dump(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.leads.insert_one(doc)
+    if OWNER_EMAIL:
+        html = _email_shell(
+            f"New booking request - {payload.service}",
+            _row("Name", payload.name)
+            + _row("Email", payload.email)
+            + _row("Phone", payload.phone)
+            + _row("Service booked", payload.service),
+        )
+        await send_email(
+            to=OWNER_EMAIL,
+            subject=f"Vanguard Security - Rezervim: {payload.service}",
+            html=html,
+        )
+    return {"status": "success", "id": doc["id"]}
+
+
 @api_router.post("/admin/login")
 async def admin_login(payload: AdminLoginRequest, request: Request):
     email = payload.email.lower()
@@ -338,7 +370,7 @@ async def admin_list_leads(
     admin=Depends(get_current_admin),
 ):
     query = {}
-    if type in ("contact", "quiz_lead"):
+    if type in ("contact", "quiz_lead", "booking"):
         query["type"] = type
     if unread:
         query["read"] = {"$ne": True}

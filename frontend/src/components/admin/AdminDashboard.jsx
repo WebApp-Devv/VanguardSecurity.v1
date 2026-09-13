@@ -173,6 +173,7 @@ export default function AdminDashboard({ token, user, onLogout }) {
               { id: "all", label: c.all },
               { id: "quiz_lead", label: c.quiz },
               { id: "contact", label: c.contact },
+              { id: "booking", label: lang === "sq" ? "Rezervime" : "Bookings" },
             ].map((f) => (
               <button
                 key={f.id}
@@ -237,7 +238,7 @@ export default function AdminDashboard({ token, user, onLogout }) {
                             : "text-neutral-300 border-white/20 bg-white/5"
                         }`}
                       >
-                        {lead.type === "quiz_lead" ? "QUIZ" : "KONTAKT"}
+                        {lead.type === "quiz_lead" ? "QUIZ" : lead.type === "booking" ? "REZERVIM" : "KONTAKT"}
                       </span>
                       <span className="text-xs text-neutral-500">{fmtDate(lead.created_at)}</span>
                     </div>
