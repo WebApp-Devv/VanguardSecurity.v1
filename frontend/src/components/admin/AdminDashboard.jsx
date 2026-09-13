@@ -4,15 +4,14 @@ import axios from "axios";
 import { toast } from "sonner";
 import {
   LogOut, Search, ClipboardList, Mail, CircleDot, Inbox,
-  ChevronDown, Trash2, Eye, EyeOff, Phone, Trophy,
+  ChevronDown, Trash2, Eye, EyeOff, Phone, Trophy, Download,
 } from "lucide-react";
-import { useLang, copy } from "@/i18n";
+import { copy } from "@/i18n";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 export default function AdminDashboard({ token, user, onLogout }) {
-  const { lang } = useLang();
-  const c = copy[lang].admin;
+  const c = copy.sq.admin;
   const headers = { Authorization: `Bearer ${token}` };
 
   const [stats, setStats] = useState(null);
@@ -71,8 +70,22 @@ export default function AdminDashboard({ token, user, onLogout }) {
     }
   };
 
+  const exportCsv = async () => {
+    try {
+      const res = await axios.get(`${API}/admin/leads/export`, { headers, responseType: "blob" });
+      const url = URL.createObjectURL(res.data);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "vanguard-leads.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      toast.error(c.loadError);
+    }
+  };
+
   const fmtDate = (iso) =>
-    new Date(iso).toLocaleString(lang === "sq" ? "sq-AL" : "en-GB", {
+    new Date(iso).toLocaleString("sq-AL", {
       day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit",
     });
 
@@ -173,7 +186,7 @@ export default function AdminDashboard({ token, user, onLogout }) {
               { id: "all", label: c.all },
               { id: "quiz_lead", label: c.quiz },
               { id: "contact", label: c.contact },
-              { id: "booking", label: lang === "sq" ? "Rezervime" : "Bookings" },
+              { id: "booking", label: "Rezervime" },
             ].map((f) => (
               <button
                 key={f.id}
@@ -205,6 +218,14 @@ export default function AdminDashboard({ token, user, onLogout }) {
             }`}
           >
             {c.unreadOnly}
+          </button>
+          <button
+            data-testid="admin-export-csv-btn"
+            onClick={exportCsv}
+            className="self-start md:self-auto inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold bg-gold text-ink hover:bg-gold-bright transition-[transform,background-color] duration-300 hover:scale-[1.03] active:scale-[0.98]"
+          >
+            <Download size={14} />
+            {c.exportCsv}
           </button>
         </div>
 

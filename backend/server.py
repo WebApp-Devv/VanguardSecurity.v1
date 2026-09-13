@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Request, Depends
+from fastapi import FastAPI, APIRouter, HTTPException, Request, Depends, Response
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -381,6 +381,35 @@ async def admin_list_leads(
         ]
     leads = await db.leads.find(query, {"_id": 0}).sort("created_at", -1).to_list(500)
     return {"leads": leads, "total": len(leads)}
+
+
+@api_router.get("/admin/leads/export")
+async def admin_export_leads(admin=Depends(get_current_admin)):
+    import csv
+    import io
+
+    leads = await db.leads.find({}, {"_id": 0}).sort("created_at", -1).to_list(10000)
+    buf = io.StringIO()
+    writer = csv.writer(buf)
+    writer.writerow(["ID", "Type", "Name", "Email", "Phone", "Service", "Message", "Answers", "Read", "Created At"])
+    for lead in leads:
+        writer.writerow([
+            lead.get("id", ""),
+            lead.get("type", ""),
+            lead.get("name", ""),
+            lead.get("email", ""),
+            lead.get("phone", ""),
+            lead.get("recommended_service") or lead.get("service", ""),
+            lead.get("message", ""),
+            " | ".join(lead.get("answers", [])),
+            "yes" if lead.get("read") else "no",
+            lead.get("created_at", ""),
+        ])
+    return Response(
+        content="﻿" + buf.getvalue(),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=vanguard-leads.csv"},
+    )
 
 
 class LeadReadUpdate(BaseModel):

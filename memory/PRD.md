@@ -28,6 +28,10 @@ Website with a catchy, Apple-iOS-ad-style entry vibe, fused with liquid glass an
 - Footer with tagline/location
 - Noise grain overlay, gold-on-matte-black palette, Clash Display + Manrope typography
 
+## Implemented (2026-07-13, update 4)
+- CSV export: GET /api/admin/leads/export (admin-only, BOM for Excel UTF-8) + gold "Shkarko CSV (Excel)" button in the admin panel that downloads vanguard-leads.csv
+- Admin panel forced fully Albanian (login + dashboard + dates in sq-AL), independent of the site's language toggle
+
 ## Implemented (2026-07-13, update 3)
 - Dedicated page per service at /services/:id (event, close_protection, physical, surveillance, patrol): hero with service image, short & clear bilingual benefits list, and a "Rezervo" booking section with the same lead form as the quiz result (shared LeadForm component). New POST /api/booking endpoint saves type "booking" leads and emails the owner. Landing service cards are clickable and route to their pages. Admin panel: "REZERVIM" badge + Bookings/Rezervime filter tab. Language choice now persists across pages (localStorage).
 - (Update 2) OWNER_EMAIL = vanguard.ks@outlook.com; "Na Kontakto" wording; scroll performance fix (141ms → 17.5ms avg frame).

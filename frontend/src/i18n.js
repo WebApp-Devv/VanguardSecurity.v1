@@ -327,6 +327,7 @@ export const copy = {
       markUnread: "Shëno si e palexuar",
       delete: "Fshije",
       deleted: "Lead-i u fshi.",
+      exportCsv: "Shkarko CSV (Excel)",
       loadError: "Të dhënat nuk u ngarkuan.",
       message: "Mesazhi",
       answers: "Përgjigjet e vlerësimit",

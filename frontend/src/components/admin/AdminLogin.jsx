@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { ShieldCheck, LoaderCircle, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useLang, copy } from "@/i18n";
+import { copy } from "@/i18n";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -17,8 +17,7 @@ function formatApiErrorDetail(detail) {
 }
 
 export default function AdminLogin({ onSuccess }) {
-  const { lang } = useLang();
-  const c = copy[lang].admin;
+  const c = copy.sq.admin;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
