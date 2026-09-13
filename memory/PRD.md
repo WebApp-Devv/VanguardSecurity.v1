@@ -28,17 +28,16 @@ Website with a catchy, Apple-iOS-ad-style entry vibe, fused with liquid glass an
 - Footer with tagline/location
 - Noise grain overlay, gold-on-matte-black palette, Clash Display + Manrope typography
 
-## Verified
-- Backend: `GET /api/`, `POST /api/contact`, `POST /api/quiz-lead` all return success; owner emails send through the managed proxy
-- Frontend: hero, quiz full flow (10 answers → loading → result → lead submit → contact prefill), SQ toggle, all sections screenshot-checked
-
-## PENDING MANUAL STEP (P0)
-- `OWNER_EMAIL` in `/app/backend/.env` is currently the test address `delivered@resend.dev`. Must be replaced with the owner's real email so quiz leads and contact requests arrive in their inbox.
+## Implemented (2026-07-13, update 1)
+- Admin Command Center at /admin: admin-only JWT login (no public registration, bcrypt hashing, 12h Bearer tokens, 5-attempt/15-min brute-force lockout), dashboard with stats cards (total/quiz/contact/unread), demand-by-service gold bar chart, filters (all/quiz/contact), live search, unread-only toggle, expandable lead details (message + all 10 quiz answers), mark read/unread, delete, logout. Admin credentials seeded from env.
+- Scroll experience rework: tighter section rhythm (py-16/24), animated gold hairline dividers with diamond markers between sections, parallax gold glow field drifting across the matte-black background while scrolling.
+- (Base build, 2026-07-13) Kinetic hero with masked line reveal + parallax, bilingual SQ/EN, services bento, manifesto About, contact form + owner email, 10-question Choose Your Vanguard quiz with lead email.
 
 ## Backlog
-- P0: Set real OWNER_EMAIL
-- P1: Real contact details (phone/email/address) — currently placeholder content
+- P0: Set real OWNER_EMAIL (currently test address delivered@resend.dev)
+- P0: Real contact details (phone/email/address) — currently placeholder content
+- P1: Change admin password for production; consider forced password change flow
 - P1: Favicon + social OG image with brand mark
-- P2: Admin inbox page to view saved leads (data already stored in MongoDB `leads` collection)
 - P2: Google Maps embed in Contact section
 - P2: Testimonials / client logos strip
+- P2: Export leads to CSV from admin panel

@@ -9,7 +9,7 @@ export default function About() {
   const c = copy[lang].about;
 
   return (
-    <section id="about" className="relative py-28 md:py-36 bg-surface/40" data-testid="about-section">
+    <section id="about" className="relative py-16 md:py-24 bg-surface/40" data-testid="about-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
         <div className="lg:sticky lg:top-32 self-start">
           <motion.p

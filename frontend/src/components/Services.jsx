@@ -80,7 +80,7 @@ export default function Services({ onOpenQuiz }) {
   const rest = SERVICES.filter((s) => !s.featured);
 
   return (
-    <section id="services" className="relative py-28 md:py-36" data-testid="services-section">
+    <section id="services" className="relative py-16 md:py-24" data-testid="services-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
           <div>

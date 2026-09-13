@@ -1,4 +1,4 @@
-from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi import FastAPI, APIRouter, HTTPException, Request, Depends
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -8,13 +8,15 @@ import ipaddress
 import logging
 import uuid
 import httpx
+import bcrypt
+import jwt
 from html import escape
 from html.parser import HTMLParser
 from urllib.parse import urlparse
 from pathlib import Path
 from pydantic import BaseModel, Field, EmailStr
-from typing import List
-from datetime import datetime, timezone
+from typing import List, Optional
+from datetime import datetime, timezone, timedelta
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -169,6 +171,80 @@ class QuizLeadRequest(BaseModel):
     answers: List[str] = Field(default_factory=list, max_length=20)
 
 
+JWT_SECRET = os.environ["JWT_SECRET"]
+JWT_ALGORITHM = "HS256"
+LOCKOUT_ATTEMPTS = 5
+LOCKOUT_MINUTES = 15
+
+
+def hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+
+def verify_password(plain: str, hashed: str) -> bool:
+    return bcrypt.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
+
+
+def create_admin_token(user_id: str, email: str) -> str:
+    payload = {
+        "sub": user_id,
+        "email": email,
+        "type": "access",
+        "exp": datetime.now(timezone.utc) + timedelta(hours=12),
+    }
+    return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+
+
+async def get_current_admin(request: Request):
+    token = None
+    auth_header = request.headers.get("Authorization", "")
+    if auth_header.startswith("Bearer "):
+        token = auth_header[7:]
+    if not token:
+        token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    if payload.get("type") != "access":
+        raise HTTPException(status_code=401, detail="Invalid token type")
+    user = await db.users.find_one({"id": payload["sub"], "role": "admin"}, {"_id": 0, "password_hash": 0})
+    if not user:
+        raise HTTPException(status_code=401, detail="Admin not found")
+    return user
+
+
+class AdminLoginRequest(BaseModel):
+    email: EmailStr
+    password: str = Field(min_length=1, max_length=200)
+
+
+async def seed_admin():
+    await db.users.create_index("email", unique=True)
+    await db.login_attempts.create_index("identifier")
+    admin_email = os.environ["ADMIN_EMAIL"].lower()
+    admin_password = os.environ["ADMIN_PASSWORD"]
+    existing = await db.users.find_one({"email": admin_email})
+    if existing is None:
+        await db.users.insert_one({
+            "id": str(uuid.uuid4()),
+            "email": admin_email,
+            "name": "Vanguard Admin",
+            "role": "admin",
+            "password_hash": hash_password(admin_password),
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        })
+    elif not verify_password(admin_password, existing["password_hash"]):
+        await db.users.update_one(
+            {"email": admin_email},
+            {"$set": {"password_hash": hash_password(admin_password)}},
+        )
+
+
 @api_router.get("/")
 async def root():
     return {"message": "Vanguard Security API"}
@@ -221,6 +297,100 @@ async def create_quiz_lead(payload: QuizLeadRequest):
             html=html,
         )
     return {"status": "success", "id": doc["id"]}
+
+
+@api_router.post("/admin/login")
+async def admin_login(payload: AdminLoginRequest, request: Request):
+    email = payload.email.lower()
+    client_ip = request.client.host if request.client else "unknown"
+    identifier = f"{client_ip}:{email}"
+    attempt = await db.login_attempts.find_one({"identifier": identifier})
+    if attempt and attempt.get("count", 0) >= LOCKOUT_ATTEMPTS:
+        last = datetime.fromisoformat(attempt["last_attempt"])
+        if datetime.now(timezone.utc) - last < timedelta(minutes=LOCKOUT_MINUTES):
+            raise HTTPException(status_code=429, detail="Too many failed attempts. Try again in 15 minutes.")
+        await db.login_attempts.delete_one({"identifier": identifier})
+
+    user = await db.users.find_one({"email": email, "role": "admin"})
+    if not user or not verify_password(payload.password, user["password_hash"]):
+        await db.login_attempts.update_one(
+            {"identifier": identifier},
+            {"$inc": {"count": 1}, "$set": {"last_attempt": datetime.now(timezone.utc).isoformat()}},
+            upsert=True,
+        )
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    await db.login_attempts.delete_one({"identifier": identifier})
+    token = create_admin_token(user["id"], email)
+    return {"token": token, "user": {"email": user["email"], "name": user.get("name", "Admin"), "role": "admin"}}
+
+
+@api_router.get("/admin/me")
+async def admin_me(admin=Depends(get_current_admin)):
+    return admin
+
+
+@api_router.get("/admin/leads")
+async def admin_list_leads(
+    type: Optional[str] = None,
+    q: Optional[str] = None,
+    unread: bool = False,
+    admin=Depends(get_current_admin),
+):
+    query = {}
+    if type in ("contact", "quiz_lead"):
+        query["type"] = type
+    if unread:
+        query["read"] = {"$ne": True}
+    if q:
+        query["$or"] = [
+            {"name": {"$regex": q, "$options": "i"}},
+            {"email": {"$regex": q, "$options": "i"}},
+        ]
+    leads = await db.leads.find(query, {"_id": 0}).sort("created_at", -1).to_list(500)
+    return {"leads": leads, "total": len(leads)}
+
+
+class LeadReadUpdate(BaseModel):
+    read: bool
+
+
+@api_router.patch("/admin/leads/{lead_id}")
+async def admin_update_lead(lead_id: str, payload: LeadReadUpdate, admin=Depends(get_current_admin)):
+    result = await db.leads.update_one({"id": lead_id}, {"$set": {"read": payload.read}})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Lead not found")
+    return {"status": "success"}
+
+
+@api_router.delete("/admin/leads/{lead_id}")
+async def admin_delete_lead(lead_id: str, admin=Depends(get_current_admin)):
+    result = await db.leads.delete_one({"id": lead_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Lead not found")
+    return {"status": "success"}
+
+
+@api_router.get("/admin/stats")
+async def admin_stats(admin=Depends(get_current_admin)):
+    leads = await db.leads.find({}, {"_id": 0}).to_list(5000)
+    by_service = {}
+    for lead in leads:
+        service = lead.get("recommended_service") or lead.get("service")
+        if service:
+            by_service[service] = by_service.get(service, 0) + 1
+    return {
+        "total": len(leads),
+        "quiz_leads": sum(1 for l in leads if l.get("type") == "quiz_lead"),
+        "contact_requests": sum(1 for l in leads if l.get("type") == "contact"),
+        "unread": sum(1 for l in leads if not l.get("read")),
+        "by_service": by_service,
+    }
+
+
+@app.on_event("startup")
+async def startup():
+    await seed_admin()
 
 
 app.include_router(api_router)

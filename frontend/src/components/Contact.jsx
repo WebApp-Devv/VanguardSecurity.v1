@@ -39,7 +39,7 @@ export default function Contact({ prefillService }) {
     "w-full bg-white/5 border border-white/10 focus:border-gold/70 rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-neutral-500 outline-none transition-colors duration-300";
 
   return (
-    <section id="contact" className="relative py-28 md:py-36" data-testid="contact-section">
+    <section id="contact" className="relative py-16 md:py-24" data-testid="contact-section">
       <div className="absolute inset-0 gold-radial opacity-60" />
       <div className="relative max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16">
         <div>
