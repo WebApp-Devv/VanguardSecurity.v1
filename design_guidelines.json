@@ -1,0 +1,66 @@
+{
+  "project_name": "Vanguard Security",
+  "theme_strategy": "Apple iOS ad-style structure fused with liquid glassmorphism, rounded edges. Premium, high-end, authoritative. One bold cohesive art direction.",
+  "bilingual_support": "Albanian (SQ) and English (EN) with seamless language toggle state. All text elements should be wrapped in translation logic or conditional rendering.",
+  "typography": {
+    "headings": "Clash Display (Fontshare) - Sharp, authoritative, distinctive. NEVER use Inter/Roboto.",
+    "body": "Manrope (Google Fonts) - Clean, geometric, perfect legibility at small sizes.",
+    "brand_mark": "Create a typographic logo using Clash Display (Bold/Semibold) with tight tracking ('tracking-tighter'). No generic icons.",
+    "import_instructions": "Import Clash Display from Fontshare CDN and Manrope from Google Fonts in index.css."
+  },
+  "colors": {
+    "base_black": "#050505",
+    "matte_black_surface": "#111111",
+    "vanguard_gold": "#D4AF37",
+    "vanguard_gold_hover": "#F1C40F",
+    "text_primary": "#FFFFFF",
+    "text_muted": "#A3A3A3",
+    "border_subtle": "rgba(255, 255, 255, 0.1)",
+    "forbidden_colors": ["purple", "generic blue", "neon green", "#7351B7", "#1B93A4"]
+  },
+  "visual_enhancers": {
+    "liquid_glass": "bg-white/5 backdrop-blur-[24px] backdrop-saturate-150 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]",
+    "rounded_edges": "Use 'rounded-3xl' or 'rounded-[2rem]' for main structural cards and 'rounded-full' for buttons.",
+    "noise_texture": "Apply a very subtle 2-3% opacity grain/noise SVG pattern over the matte black background to make it feel tactile, not flat digital.",
+    "no_transparency_trap": "NEVER use complete transparent backgrounds in header/overlays where content sits underneath. Always use the liquid_glass token."
+  },
+  "component_rules": {
+    "hero_kinetic": "Signature on-load moment. Use Framer Motion. Large headings wrapped in 'overflow-hidden'. Text elements start at 'y: 100%' and stagger reveal to 'y: 0' with ease: [0.76, 0, 0.24, 1].",
+    "quiz_experience": "Full-screen fixed modal ('z-50', 'inset-0') when 'Choose Your Vanguard' is clicked. Deep black background with blurred liquid glass active card. Use Framer Motion 'AnimatePresence' for sliding between the 10 questions. Include a faux loading spinner step before revealing the recommended service.",
+    "editorial_marquee": "One slow, smooth marquee using 'react-fast-marquee'. Low contrast text (e.g., text-muted) with wide tracking. Words like: 'PHYSICAL SECURITY • CLOSE PROTECTION • SURVEILLANCE • TACTICAL RESPONSE'.",
+    "buttons": "Pill-shaped ('rounded-full'). Primary CTA: Matte Gold background with black text, subtle scale on hover. Secondary: Glassmorphic with gold border and white text."
+  },
+  "grids_and_layouts": {
+    "spacing": "Generous spacing. Use 'py-24' or 'py-32' for sections. Container padding 'px-6 md:px-12'.",
+    "services_bento": "Mode A (Tetris Grid). 'grid-cols-1 md:grid-cols-12 gap-6'. Massive featured service spanning 8 columns, smaller services spanning 4. Never fill 100% symmetrically; leave intentional negative space.",
+    "header": "Sticky top, 'z-40', liquid glass background. Minimalist layout: Typographic logo left, Nav center, Language Toggle (SQ/EN) right.",
+    "contact_section": "Half text/manifesto, half sleek minimalist form. Use standard Shadcn/UI inputs but heavily customized: transparent background, gold focus rings, bottom border only (Apple style) or sleek fully rounded inputs."
+  },
+  "motion": {
+    "scrolling": "MANDATORY: Use 'lenis' library for smooth momentum scrolling. It gives the 'Apple-ad' weighty feel.",
+    "transitions": "Use Framer Motion. Spring animations for micro-interactions (stiffness 400, damping 30). Parallax effect on the main hero background image (scroll mapped to Y translation).",
+    "stagger": "Stagger children appearances in bento grids using 'delayChildren' and 'staggerChildren'."
+  },
+  "accessibility": {
+    "contrast": "Ensure text over glass meets APCA/WCAG ratios. Use text-shadow ('drop-shadow-md') on text placed directly over images.",
+    "testing_tags": "All interactive elements, quiz options, buttons, and form inputs MUST include 'data-testid' attributes (e.g., 'data-testid=\"choose-vanguard-btn\"')."
+  },
+  "media_and_images": {
+    "strategy": "Spotlight imagery, dark tones, clipped frames (rounded-3xl). Never use placeholders.",
+    "urls": {
+      "hero_background": "https://images.unsplash.com/photo-1762337009787-bad651efb880?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBsdXh1cnklMjBidWlsZGluZyUyMG5pZ2h0fGVufDB8fHx8MTc4OTMwNjQzNnww&ixlib=rb-4.1.0&q=85",
+      "service_physical": "https://images.unsplash.com/photo-1763311850598-b0bf076c9901?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHw0fHxzZWN1cml0eSUyMGNhbWVyYSUyMGRhcmslMjBtb2Rlcm58ZW58MHx8fHwxNzg5MzA2NDM2fDA&ixlib=rb-4.1.0&q=85",
+      "service_surveillance": "https://images.unsplash.com/photo-1776639257282-35eda08588bf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwyfHxzZWN1cml0eSUyMGNhbWVyYSUyMGRhcmslMjBtb2Rlcm58ZW58MHx8fHwxNzg5MzA2NDM2fDA&ixlib=rb-4.1.0&q=85",
+      "service_abstract_dark": "https://images.unsplash.com/photo-1784411641863-d163d776ed55?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAxODF8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBsdXh1cnklMjBidWlsZGluZyUyMG5pZ2h0fGVufDB8fHx8MTc4OTMwNjQzNnww&ixlib=rb-4.1.0&q=85"
+    }
+  },
+  "universal_guidelines_for_main_agent": [
+    "NO AI SLOP: Do not use generic centered layouts, simple linear gradients, or predictable Tailwind structures.",
+    "Code in Javascript (JSX), NOT Typescript (TSX).",
+    "Bilingual content is mandatory. Structure your components to easily switch between 'SQ' and 'EN' strings.",
+    "Include 'data-testid' on ALL buttons, links, and quiz selections.",
+    "Do NOT use 'transition: all'. Explicitly animate transform, opacity, and background-color.",
+    "For the brand mark, just use styled text. Do not add generic shield or lock icons.",
+    "Implement 'Choose Your Vanguard' as a robust full-screen interactive component, tracking answers in state to show a final recommendation card."
+  ]
+}
