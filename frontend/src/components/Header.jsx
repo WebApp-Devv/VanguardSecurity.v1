@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ShieldCheck } from "lucide-react";
 import { useLang, copy } from "@/i18n";
@@ -7,6 +7,14 @@ export default function Header({ onOpenQuiz, onNavigate }) {
   const { lang, setLang } = useLang();
   const c = copy[lang].nav;
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const links = [
     { id: "services", label: c.services, hash: "#services", testid: "nav-services-link" },
@@ -20,8 +28,17 @@ export default function Header({ onOpenQuiz, onNavigate }) {
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-40 px-4 md:px-8 pt-4" data-testid="site-header">
-      <div className="glass-strong rounded-full max-w-7xl mx-auto flex items-center justify-between pl-6 pr-3 py-3">
+    <header
+      className={`fixed top-0 inset-x-0 z-40 px-4 md:px-8 transition-[padding] duration-500 ease-out ${scrolled ? "pt-2" : "pt-4"}`}
+      data-testid="site-header"
+    >
+      <div
+        className={`glass-strong rounded-full max-w-7xl mx-auto flex items-center justify-between transition-[padding,transform,box-shadow,border-color,background-color] duration-500 ease-out ${
+          scrolled
+            ? "pl-5 pr-2.5 py-2 scale-[0.99] border-gold/25 bg-[rgba(14,14,14,0.85)] shadow-[0_10px_44px_rgba(0,0,0,0.6)]"
+            : "pl-6 pr-3 py-3"
+        }`}
+      >
         <button
           data-testid="header-logo"
           onClick={() => window.__lenis?.scrollTo(0, { duration: 1.4 })}
