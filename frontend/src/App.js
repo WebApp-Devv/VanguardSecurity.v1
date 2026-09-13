@@ -5,6 +5,7 @@ import { LanguageProvider } from "@/i18n";
 import Landing from "@/pages/Landing";
 import Admin from "@/pages/Admin";
 import ServicePage from "@/pages/ServicePage";
+import EventTypePage from "@/pages/EventTypePage";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/services/:id" element={<ServicePage />} />
+          <Route path="/services/event/:type" element={<EventTypePage />} />
         </Routes>
       </BrowserRouter>
       <Toaster theme="dark" position="bottom-center" />

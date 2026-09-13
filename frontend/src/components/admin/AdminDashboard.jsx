@@ -180,6 +180,35 @@ export default function AdminDashboard({ token, user, onLogout }) {
           </motion.div>
         )}
 
+        {stats?.weekly?.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="glass rounded-3xl p-6 mt-4"
+            data-testid="weekly-chart"
+          >
+            <p className="text-xs tracking-[0.25em] uppercase text-neutral-500 mb-6">{c.weekly}</p>
+            <div className="flex items-end gap-2 md:gap-3 h-36">
+              {stats.weekly.map((w) => (
+                <div key={w.week} className="flex-1 flex flex-col items-center justify-end gap-2 h-full">
+                  <span className="text-xs text-gold font-semibold">{w.count}</span>
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{
+                      height: `${(w.count / Math.max(1, ...stats.weekly.map((x) => x.count))) * 100}%`,
+                    }}
+                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                    className="w-full bg-gold/85 rounded-t-lg min-h-[4px]"
+                    data-testid={`weekly-bar-${w.week}`}
+                  />
+                  <span className="text-[10px] tracking-wider text-neutral-500">{w.week.slice(5)}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         <div className="mt-10 flex flex-col md:flex-row md:items-center gap-4">
           <div className="glass rounded-full flex p-1 self-start" data-testid="admin-filters">
             {[

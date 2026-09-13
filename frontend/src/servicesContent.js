@@ -118,3 +118,63 @@ export const SERVICE_PAGE = {
     cta: "Rezervo Këtë Shërbim",
   },
 };
+
+export const EVENT_META = {
+  typesTitle: { en: "Choose your arena", sq: "Zgjidh arenën tënde" },
+  backEvents: { en: "Back to Event Security", sq: "Kthehu te Siguria e Eventeve" },
+};
+
+export const EVENT_TYPES = [
+  {
+    id: "football",
+    name: { en: "Football Matches", sq: "Ndeshje Futbolli" },
+    desc: {
+      en: "From local derbies to packed international fixtures — full stadium operations with zero tolerance for chaos.",
+      sq: "Nga derbit lokale te ndeshjet ndërkombëtare me stadium plot — operacione të plota stadiumi, zero tolerancë ndaj kaosit.",
+    },
+    bullets: {
+      en: ["Turnstile and gate management", "Crowd segregation and ultras control", "Pitch and player tunnel protection", "VIP and match officials escort", "Emergency evacuation readiness"],
+      sq: ["Menaxhim i turniketeve dhe hyrjeve", "Ndarje e turmës dhe kontroll i tifogrupove", "Mbrojtje e fushës dhe tunelit të lojtarëve", "Shoqërim i VIP-ve dhe zyrtarëve të ndeshjes", "Gatishmëri për evakuim emergjent"],
+    },
+    image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&q=75&w=1400",
+  },
+  {
+    id: "boxing",
+    name: { en: "Boxing Nights", sq: "Netë Boksi" },
+    desc: {
+      en: "Ring-side intensity needs calm control — fighter entourages, VIP ringside and roaring crowds, all held in balance.",
+      sq: "Intensiteti pranë ringut kërkon kontroll të qetë — enturazhet e boksierëve, VIP-at dhe turma e ngarkuar, të gjitha në ekuilibër.",
+    },
+    bullets: {
+      en: ["Ring and red-zone protection", "Fighter and entourage escort", "Ringside VIP area control", "Crowd surge management", "Backstage and locker room security"],
+      sq: ["Mbrojtje e ringut dhe zonës së kuqe", "Shoqërim i boksierëve dhe enturazhit", "Kontroll i zonës VIP pranë ringut", "Menaxhim i shtytjeve të turmës", "Siguri e backstage-it dhe dhomave të zhveshjes"],
+    },
+    image: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&q=75&w=1400",
+  },
+  {
+    id: "concert",
+    name: { en: "Concerts", sq: "Koncerte" },
+    desc: {
+      en: "Thousands of fans, one stage, zero incidents — barrier crews, backstage control and artist protection.",
+      sq: "Mijëra fansa, një skenë, zero incidente — ekipe barrierash, kontroll backstage-i dhe mbrojtje e artistit.",
+    },
+    bullets: {
+      en: ["Front-stage barrier crews", "Moshpit and crowd-flow control", "Artist and backstage protection", "Ticket and entry scanning", "Medical and evacuation coordination"],
+      sq: ["Ekipe barrierash para skenës", "Kontroll i turmës dhe rrjedhës", "Mbrojtje e artistit dhe backstage-it", "Skanim biletash dhe hyrje", "Koordinim mjekësor dhe evakuimi"],
+    },
+    image: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&q=75&w=1400",
+  },
+  {
+    id: "business",
+    name: { en: "Business Events", sq: "Evente Biznesi" },
+    desc: {
+      en: "Conferences, galas and product launches — discreet, polished security that matches your brand's standard.",
+      sq: "Konferenca, gala dhe lançime produktesh — siguri diskrete dhe e përpunuar që përkon me standardin e markës suaj.",
+    },
+    bullets: {
+      en: ["Guest list and accreditation control", "Discreet plain-clothes officers", "VIP and speaker escort", "Asset and equipment protection", "After-hours venue lockdown"],
+      sq: ["Kontroll i listës së të ftuarve dhe akreditimeve", "Oficerë diskretë me veshje civile", "Shoqërim i VIP-ve dhe folësve", "Mbrojtje e pajisjeve dhe pasurive", "Mbyllje e sigurt e ambientit pas eventit"],
+    },
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=75&w=1400",
+  },
+];

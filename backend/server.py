@@ -440,12 +440,24 @@ async def admin_stats(admin=Depends(get_current_admin)):
         service = lead.get("recommended_service") or lead.get("service")
         if service:
             by_service[service] = by_service.get(service, 0) + 1
+    weekly_counts = {}
+    for lead in leads:
+        try:
+            dt = datetime.fromisoformat(lead["created_at"])
+            iso_year, iso_week, _ = dt.isocalendar()
+            key = f"{iso_year}-W{iso_week:02d}"
+            weekly_counts[key] = weekly_counts.get(key, 0) + 1
+        except Exception:
+            continue
+    weeks_sorted = sorted(weekly_counts.keys())[-8:]
+    weekly = [{"week": w, "count": weekly_counts[w]} for w in weeks_sorted]
     return {
         "total": len(leads),
         "quiz_leads": sum(1 for l in leads if l.get("type") == "quiz_lead"),
         "contact_requests": sum(1 for l in leads if l.get("type") == "contact"),
         "unread": sum(1 for l in leads if not l.get("read")),
         "by_service": by_service,
+        "weekly": weekly,
     }
 
 

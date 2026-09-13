@@ -328,6 +328,7 @@ export const copy = {
       delete: "Fshije",
       deleted: "Lead-i u fshi.",
       exportCsv: "Shkarko CSV (Excel)",
+      weekly: "Lead-et e reja sipas javëve",
       loadError: "Të dhënat nuk u ngarkuan.",
       message: "Mesazhi",
       answers: "Përgjigjet e vlerësimit",

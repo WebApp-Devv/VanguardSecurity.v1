@@ -28,6 +28,10 @@ Website with a catchy, Apple-iOS-ad-style entry vibe, fused with liquid glass an
 - Footer with tagline/location
 - Noise grain overlay, gold-on-matte-black palette, Clash Display + Manrope typography
 
+## Implemented (2026-07-13, update 5)
+- Event Security sub-pages: /services/event/:type for football, boxing, concert, business — each with its own photo, bilingual benefit bullets, and Rezervo booking form (service tagged "Event Security — <Type>"). Event types grid added to the Event Security page.
+- Weekly stats chart in admin panel: backend computes ISO-week lead counts (last 8 weeks), dashboard renders animated gold bars in Albanian.
+
 ## Implemented (2026-07-13, update 4)
 - CSV export: GET /api/admin/leads/export (admin-only, BOM for Excel UTF-8) + gold "Shkarko CSV (Excel)" button in the admin panel that downloads vanguard-leads.csv
 - Admin panel forced fully Albanian (login + dashboard + dates in sq-AL), independent of the site's language toggle
