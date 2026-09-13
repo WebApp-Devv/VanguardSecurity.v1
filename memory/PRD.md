@@ -28,13 +28,15 @@ Website with a catchy, Apple-iOS-ad-style entry vibe, fused with liquid glass an
 - Footer with tagline/location
 - Noise grain overlay, gold-on-matte-black palette, Clash Display + Manrope typography
 
-## Implemented (2026-07-13, update 1)
-- Admin Command Center at /admin: admin-only JWT login (no public registration, bcrypt hashing, 12h Bearer tokens, 5-attempt/15-min brute-force lockout), dashboard with stats cards (total/quiz/contact/unread), demand-by-service gold bar chart, filters (all/quiz/contact), live search, unread-only toggle, expandable lead details (message + all 10 quiz answers), mark read/unread, delete, logout. Admin credentials seeded from env.
+## Implemented (2026-07-13, update 2)
+- OWNER_EMAIL set to vanguard.ks@outlook.com — contact + quiz lead emails now go to the owner
+- SQ wording: "Kontakto Na" corrected to "Na Kontakto"
+- Scroll performance fix: removed scroll-linked parallax on blurred glow fields, reduced backdrop-blur radii (24/28px → 14/18px), large panels use blur-free glass-panel, tag chips de-blurred. Measured: 141ms → 17.5ms average frame time during scroll (steady state ~57fps).
+- (Update 1) Admin Command Center at /admin: admin-only JWT login (no public registration, bcrypt hashing, 12h Bearer tokens, 5-attempt/15-min brute-force lockout), dashboard with stats cards (total/quiz/contact/unread), demand-by-service gold bar chart, filters (all/quiz/contact), live search, unread-only toggle, expandable lead details (message + all 10 quiz answers), mark read/unread, delete, logout. Admin credentials seeded from env.
 - Scroll experience rework: tighter section rhythm (py-16/24), animated gold hairline dividers with diamond markers between sections, parallax gold glow field drifting across the matte-black background while scrolling.
 - (Base build, 2026-07-13) Kinetic hero with masked line reveal + parallax, bilingual SQ/EN, services bento, manifesto About, contact form + owner email, 10-question Choose Your Vanguard quiz with lead email.
 
 ## Backlog
-- P0: Set real OWNER_EMAIL (currently test address delivered@resend.dev)
 - P0: Real contact details (phone/email/address) — currently placeholder content
 - P1: Change admin password for production; consider forced password change flow
 - P1: Favicon + social OG image with brand mark

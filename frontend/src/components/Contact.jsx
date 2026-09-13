@@ -103,7 +103,7 @@ export default function Contact({ prefillService }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="glass rounded-[2rem] p-8 md:p-10 flex flex-col gap-5"
+          className="glass-panel rounded-[2rem] p-8 md:p-10 flex flex-col gap-5"
           data-testid="contact-form"
         >
           <input

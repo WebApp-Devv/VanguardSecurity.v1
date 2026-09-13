@@ -4,7 +4,7 @@ import { useLang, copy, SERVICES } from "@/i18n";
 
 const IMAGES = {
   event:
-    "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&q=80&w=1800",
+    "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&q=75&w=1400",
   close_protection:
     "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1200",
   physical:
@@ -62,7 +62,7 @@ function ServiceCard({ service, index, featured, lang }) {
         {featured && (
           <div className="mt-5 flex flex-wrap gap-2">
             {service.tags[lang].map((t) => (
-              <span key={t} className="glass rounded-full px-3.5 py-1.5 text-xs text-gold/90 border-gold/20">
+              <span key={t} className="rounded-full px-3.5 py-1.5 text-xs text-gold/90 bg-ink/60 border border-gold/20">
                 {t}
               </span>
             ))}

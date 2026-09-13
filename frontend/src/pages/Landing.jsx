@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
@@ -11,23 +11,11 @@ import Footer from "@/components/Footer";
 import Quiz from "@/components/Quiz";
 
 function GlowField() {
-  const { scrollYProgress } = useScroll();
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -260]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 320]);
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
-      <motion.div
-        style={{ y: y1 }}
-        className="absolute -top-48 -left-48 w-[38rem] h-[38rem] rounded-full bg-gold/10 blur-[150px]"
-      />
-      <motion.div
-        style={{ y: y2 }}
-        className="absolute top-1/3 -right-56 w-[32rem] h-[32rem] rounded-full bg-gold/[0.07] blur-[140px]"
-      />
-      <motion.div
-        style={{ y: y1 }}
-        className="absolute bottom-[-10rem] left-1/4 w-[28rem] h-[28rem] rounded-full bg-gold/[0.05] blur-[130px]"
-      />
+      <div className="absolute -top-48 -left-48 w-[34rem] h-[34rem] rounded-full bg-gold/[0.07] blur-[110px]" />
+      <div className="absolute top-1/3 -right-56 w-[28rem] h-[28rem] rounded-full bg-gold/[0.05] blur-[100px]" />
+      <div className="absolute bottom-[-10rem] left-1/4 w-[24rem] h-[24rem] rounded-full bg-gold/[0.04] blur-[100px]" />
     </div>
   );
 }

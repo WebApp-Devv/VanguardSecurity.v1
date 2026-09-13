@@ -294,7 +294,7 @@ export const copy = {
       sending: "Duke dërguar...",
       sent: "Vlerësimi u dërgua. Kontrolloni email-in së shpejti.",
       error: "Dërgimi dështoi. Mund të na kontaktoni drejtpërdrejt.",
-      contact: "Kontakto Na",
+      contact: "Na Kontakto",
       retake: "Rifillo vlerësimin",
     },
     admin: {
