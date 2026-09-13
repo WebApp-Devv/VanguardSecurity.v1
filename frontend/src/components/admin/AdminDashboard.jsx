@@ -115,7 +115,7 @@ export default function AdminDashboard({ token, user, onLogout }) {
       <main className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 pt-10 pb-20">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <p className="text-xs tracking-[0.3em] uppercase text-gold mb-2">{c.overview}</p>
-          <h1 className="font-display font-semibold tracking-tighter text-3xl md:text-5xl">
+          <h1 className="font-display font-semibold tracking-tight text-3xl md:text-5xl">
             {c.hello}, {user.name}
           </h1>
         </motion.div>

@@ -99,7 +99,7 @@ export default function Services({ onOpenQuiz }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="font-display font-semibold tracking-tighter text-4xl md:text-6xl"
+              className="font-display font-semibold tracking-tight text-4xl md:text-6xl"
               data-testid="services-title"
             >
               {c.title}

@@ -222,7 +222,7 @@ export default function Quiz({ open, onClose, onContact }) {
                   <span className="inline-flex glass rounded-full p-4 text-gold mb-8">
                     <ShieldCheck size={28} strokeWidth={2} />
                   </span>
-                  <h2 className="font-display font-semibold tracking-tighter text-4xl md:text-5xl" data-testid="quiz-intro-title">
+                  <h2 className="font-display font-semibold tracking-tight text-4xl md:text-5xl" data-testid="quiz-intro-title">
                     {c.introTitle}
                   </h2>
                   <p className="mt-5 text-neutral-400 leading-relaxed max-w-md mx-auto text-sm md:text-base">{c.introText}</p>
@@ -327,7 +327,7 @@ export default function Quiz({ open, onClose, onContact }) {
                   data-testid="quiz-result"
                 >
                   <p className="text-xs tracking-[0.3em] uppercase text-gold/80 text-center">{c.resultEyebrow}</p>
-                  <h3 className="font-display font-semibold tracking-tighter text-4xl md:text-5xl text-center mt-4" data-testid="quiz-result-title">
+                  <h3 className="font-display font-semibold tracking-tight text-4xl md:text-5xl text-center mt-4" data-testid="quiz-result-title">
                     {c.resultTitle}{" "}
                     <span className="text-gold italic">{result.name[lang]}</span>
                   </h3>

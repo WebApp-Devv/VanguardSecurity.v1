@@ -94,6 +94,10 @@
     background: radial-gradient(ellipse 60% 45% at 50% 0%, rgba(212, 175, 55, 0.14), transparent 70%);
 }
 
+.font-display {
+    word-spacing: 0.14em;
+}
+
 .lenis.lenis-smooth {
     scroll-behavior: auto !important;
 }

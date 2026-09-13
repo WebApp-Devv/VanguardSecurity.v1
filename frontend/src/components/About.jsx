@@ -26,7 +26,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display font-semibold tracking-tighter text-4xl md:text-5xl leading-[1.05]"
+            className="font-display font-semibold tracking-tight text-4xl md:text-5xl leading-[1.05]"
             data-testid="about-title"
           >
             {c.title}

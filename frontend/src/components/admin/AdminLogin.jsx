@@ -57,7 +57,7 @@ export default function AdminLogin({ onSuccess }) {
         <span className="inline-flex glass rounded-full p-3.5 text-gold mb-6">
           <ShieldCheck size={24} strokeWidth={2} />
         </span>
-        <h1 className="font-display font-semibold tracking-tighter text-3xl md:text-4xl" data-testid="admin-login-title">
+        <h1 className="font-display font-semibold tracking-tight text-3xl md:text-4xl" data-testid="admin-login-title">
           {c.loginTitle}
         </h1>
         <p className="mt-2 text-sm text-neutral-500">{c.loginSub}</p>

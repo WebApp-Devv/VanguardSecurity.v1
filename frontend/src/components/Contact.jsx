@@ -57,7 +57,7 @@ export default function Contact({ prefillService }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display font-semibold tracking-tighter text-4xl md:text-6xl leading-[1.02]"
+            className="font-display font-semibold tracking-tight text-4xl md:text-6xl leading-[1.02]"
             data-testid="contact-title"
           >
             {c.title}

@@ -77,7 +77,7 @@ export default function ServicePage() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display font-semibold tracking-tighter text-4xl md:text-6xl mt-3"
+            className="font-display font-semibold tracking-tight text-4xl md:text-6xl mt-3"
             data-testid="service-title"
           >
             {service.name[lang]}
@@ -150,7 +150,7 @@ export default function ServicePage() {
             transition={{ duration: 0.8 }}
           >
             <p className="text-xs tracking-[0.3em] uppercase text-gold mb-4">{service.name[lang]}</p>
-            <h2 className="font-display font-semibold tracking-tighter text-4xl md:text-6xl" data-testid="rezervo-title">
+            <h2 className="font-display font-semibold tracking-tight text-4xl md:text-6xl" data-testid="rezervo-title">
               {p.bookingTitle}
             </h2>
             <p className="mt-5 text-neutral-400 leading-relaxed max-w-md text-sm md:text-base">{p.bookingText}</p>

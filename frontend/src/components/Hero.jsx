@@ -47,7 +47,7 @@ export default function Hero({ onOpenQuiz, onNavigate }) {
           <span className="text-xs md:text-sm tracking-[0.18em] uppercase text-neutral-300">{c.eyebrow}</span>
         </motion.div>
 
-        <h1 className="font-display font-semibold tracking-tighter text-[13.5vw] sm:text-7xl lg:text-8xl leading-[0.95]" data-testid="hero-headline">
+        <h1 className="font-display font-semibold tracking-tight text-[13.5vw] sm:text-7xl lg:text-8xl leading-[0.95]" data-testid="hero-headline">
           <span className="block overflow-hidden pb-1">
             <motion.span custom={0} variants={lineReveal} initial="hidden" animate="show" className="block">
               {c.line1}
